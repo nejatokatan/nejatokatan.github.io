@@ -91,16 +91,62 @@
   .nav li { margin: 4px 0; }
   .nav a { color: var(--ink); }
   .nav a:hover { color: var(--accent); }
-  .nav .theme { margin-top: 14px; }
-  .theme-toggle {
-    background: none;
-    border: 0;
+
+  /* Light/dark switch, top right */
+  .page { position: relative; }
+  .theme-switch {
+    position: absolute;
+    top: 26px;
+    right: 32px;
+    width: 44px;
+    height: 24px;
     padding: 0;
-    font: inherit;
-    color: var(--muted);
+    border: 1px solid var(--rule);
+    border-radius: 12px;
+    background: var(--rule);
     cursor: pointer;
   }
-  .theme-toggle:hover { color: var(--accent); }
+  .theme-switch:hover { background: var(--accent-soft); border-color: var(--accent-soft); }
+  .theme-switch:focus-visible { border-radius: 12px; }
+  .knob {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--paper);
+    color: var(--accent);
+    display: grid;
+    place-items: center;
+    transition: transform 0.2s ease;
+  }
+  .knob svg { width: 12px; height: 12px; }
+  .knob .moon { display: none; }
+  .theme-switch[aria-checked="true"] .knob { transform: translateX(20px); }
+  .theme-switch[aria-checked="true"] .sun { display: none; }
+  .theme-switch[aria-checked="true"] .moon { display: block; }
+  /* Hover label */
+  .theme-switch::after {
+    content: attr(data-tip);
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    white-space: nowrap;
+    font: 0.8rem/1.4 "Newsreader", Georgia, serif;
+    color: var(--paper);
+    background: var(--ink);
+    padding: 3px 9px;
+    border-radius: 3px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.15s ease;
+  }
+  .theme-switch:hover::after,
+  .theme-switch:focus-visible::after { opacity: 1; }
+  @media (prefers-reduced-motion: reduce) {
+    .knob, .theme-switch::after { transition: none; }
+  }
 
   /* Content */
   main { max-width: 40rem; }
@@ -168,7 +214,8 @@
 
   /* Mobile: sidebar becomes a header */
   @media (max-width: 760px) {
-    .page { grid-template-columns: 1fr; gap: 40px; padding: 40px 22px 32px; }
+    .page { grid-template-columns: 1fr; gap: 40px; padding: 60px 22px 32px; }
+    .theme-switch { top: 18px; right: 22px; }
     .side {
       position: static;
       display: grid;
@@ -180,7 +227,6 @@
     .name { font-size: 1.5rem; }
     .contact { margin-bottom: 0; }
     .nav { grid-column: 1 / -1; display: flex; align-items: baseline; gap: 22px; margin-top: 22px; }
-    .nav .theme { margin: 0 0 0 auto; }
   }
 </style>
 <script>
@@ -193,6 +239,20 @@
 </head>
 <body>
 <div class="page">
+
+  <button class="theme-switch" type="button" role="switch"
+          aria-checked="false" aria-label="Dark mode" hidden>
+    <span class="knob" aria-hidden="true">
+      <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+           stroke-width="2.2" stroke-linecap="round">
+        <circle cx="12" cy="12" r="4.2" fill="currentColor" stroke="none"/>
+        <path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/>
+      </svg>
+      <svg class="moon" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M20.5 14.6A8.5 8.5 0 0 1 9.4 3.5a8.5 8.5 0 1 0 11.1 11.1z"/>
+      </svg>
+    </span>
+  </button>
 
   <aside class="side">
     <!-- Upload your photo to the repository as profile.jpg -->
@@ -208,7 +268,6 @@
       <li><a href="#teaching">Teaching</a></li>
       <!-- Upload your CV to the repository as cv.pdf -->
       <li><a href="NGOkatan_CV.pdf">CV</a></li>
-      <li class="theme"><button class="theme-toggle" type="button" hidden>Dark mode</button></li>
     </ul>
   </aside>
 
@@ -224,7 +283,7 @@
 
         <article class="paper">
         <p class="paper-title"><a href="papers/NGOkatan_Paper5_RealEffects.pdf">The Real Effects of Banks' Corporate Credit Supply: A Literature Review</a></p>
-        <p class="paper-authors">with Ozan Guler, Mike Mariathasan, and Klaas Mulier</p>
+        <p class="paper-authors">with O. Guler, M. Mariathasan, and K. Mulier</p>
         <p class="paper-pub"><em>Economic Inquiry</em>,
           59(3), 1252–1285, 2021</p>
           <details>
@@ -235,7 +294,7 @@
       
       <article class="paper">
         <p class="paper-title"><a href="papers/NGOkatan_Paper1_Default_Trade.pdf">Sovereign Defaults and Trade: External vs Domestic Creditors</a></p>
-        <p class="paper-authors">with Dennis Essers and Silvia Marchesi</p>
+        <p class="paper-authors">with D. Essers and S. Marchesi</p>
         <p class="paper-status">Revise and Resubmit, Journal of International Economics</p>
         <details>
           <summary>Abstract</summary>
@@ -245,7 +304,8 @@
 
       <article class="paper">
         <p class="paper-title"><!--<a href="papers/NGOkatan_Paper3_Credit_Labor.pdf">-->How Credit Availability and Production Technologies Shape Hiring: Evidence from a Plant Closure</a></p>
-        <p class="paper-authors">with Mike Mariathasan and Klaas Mulier</p>
+        <p class="paper-authors">with M. Mariathasan and K. Mulier</p>
+        <p class="paper-status">Presented at the IWH-FIN-FIRE workshop (Halle), EALE (NHH Bergen), German Finance Association (RWTH Aachen), Belgian Financial Research Forum (National Bank of Belgium)</p>        
         <details>
           <summary>Abstract</summary>
           <p class="abstract">This paper studies the role of production technology and credit availability for firms' hiring decisions following a labor supply shock. Our analysis uses matched firm- and loan-level data and exploits the closure of a large foreign manufacturing plant in Belgium. The closure exogenously increased labor supply to nearby firms but not to distant firms. Comparing nearby to similar distant firms, we find that nearby firms hire significantly more after the plant closure. Yet, the employment effect is not homogeneous. In industries with a low capital-labor elasticity of substitution, nearby firms only hire more if credit supply enables complementary capital expenditures. In industries with a high elasticity of substitution, nearby firms hire more independent of credit supply, but (weakly) more when tight credit restricts capital expenditures. Our results have important implications, e.g., for managing unemployment during financial crises when both labor and credit supply are simultaneously affected.</p>
@@ -254,7 +314,8 @@
 
       <article class="paper">
         <p class="paper-title"><!--<a href="papers/NGOkatan_Paper4_Preferences_Firms.pdf">-->Mass Layoffs, Re-employment Preferences, and Firm Outcomes</a></p>
-        <p class="paper-authors">with Mike Mariathasan and Klaas Mulier</p>
+        <p class="paper-authors">with M. Mariathasan and K. Mulier</p>
+        <p class="paper-status">Presented at the French Economic Association, Sciences Po</p>
         <details>
           <summary>Abstract</summary>
           <p class="abstract">We study how workers' preference for job security shape re-employment following mass layoffs and how firms adjust to the resulting labor supply shock. Exploiting the closure of a large manufacturing plant in Belgium, we show that the resulting local increase in the supply of blue-collar workers raises blue-collar employment at exposed firms relative to otherwise similar firms. The effect is particularly pronounced among firms perceived to offer greater job security, suggesting that workers' preferences influence where displaced workers are re-employed. Firms that hire more displaced workers become more blue-collar- and less capital-intensive, but do not become more profitable. To accommodate their higher wage bills, they reduce interest expenses by substituting short-term for long-term debt. Thus, re-employment not only responds to workers' preferences but also alters firms' financial structure, making ex ante safer firms financially riskier. Our findings identify a novel channel through which labor supply shocks affect corporate financial decisions and firm solvency.</p>
@@ -263,8 +324,8 @@
 
       <article class="paper">
         <p class="paper-title"><!--<a href="papers/NGOkatan_Paper2_Default_Banks.pdf">-->Sovereign Defaults, Bank Ownership, and Lending Outcomes</a></p>
-        <p class="paper-authors">with Silvia Marchesi and Ugo Panizza</p>
-        <p class="paper-status">Presented at the 4th Public Debt Management Conference, Paris, 2026</p>
+        <p class="paper-authors">with S. Marchesi and U. Panizza</p>
+        <p class="paper-status">Presented at the 4th Public Debt Management Conference, OECD</p>
         <details>
           <summary>Abstract</summary>
           <p class="abstract">Using data on up to 5,337 banks in 154 countries over 1996-2020, we show that the response of bank lending to sovereign default depends jointly on bank ownership and on the type of default. During external defaults, lending by foreign-owned banks falls sharply, consistent with flight-home behavior, while state-owned banks cut credit less than private domestic banks. Domestic defaults produce the opposite pattern: foreign-owned banks sustain lending, shielded from the deposit outflows that hit their domestic peers, while state-owned banks suffer large increases in non-performing loans linked to their holdings of domestic sovereign bonds. Results on asset quality and deposit flows corroborate these mechanisms.</p>
@@ -306,13 +367,15 @@
 <script>
   (function () {
     var root = document.documentElement;
-    var btn = document.querySelector('.theme-toggle');
+    var btn = document.querySelector('.theme-switch');
     var media = window.matchMedia('(prefers-color-scheme: dark)');
     function current() {
       return root.getAttribute('data-theme') || (media.matches ? 'dark' : 'light');
     }
     function render() {
-      btn.textContent = current() === 'dark' ? 'Light mode' : 'Dark mode';
+      var dark = current() === 'dark';
+      btn.setAttribute('aria-checked', dark ? 'true' : 'false');
+      btn.setAttribute('data-tip', dark ? 'Switch to light mode' : 'Switch to dark mode');
     }
     btn.addEventListener('click', function () {
       var next = current() === 'dark' ? 'light' : 'dark';
@@ -321,8 +384,8 @@
       render();
     });
     media.addEventListener('change', render);
-    btn.hidden = false;
     render();
+    btn.hidden = false;
   })();
 </script>
 </body>
