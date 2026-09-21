@@ -21,6 +21,7 @@
     --rule: #e4e1dc;
     --accent: #980000;
     --accent-soft: #eedcdc;
+    --icon-hover: #262626;
   }
   /* Dark colours: used when the visitor's system is dark
      (unless they chose light), or when they chose dark */
@@ -33,6 +34,7 @@
       --rule: #36352f;
       --accent: #e08a8a;
       --accent-soft: #4a2e2e;
+      --icon-hover: #e08a8a;
     }
   }
   :root[data-theme="dark"] {
@@ -43,6 +45,7 @@
     --rule: #36352f;
     --accent: #e08a8a;
     --accent-soft: #4a2e2e;
+    --icon-hover: #e08a8a;
   }
   * { box-sizing: border-box; }
   html { font-size: 18px; -webkit-text-size-adjust: 100%; }
@@ -163,10 +166,10 @@
     position: relative;
     display: inline-block;
     color: var(--muted);
-    font-size: 1.45rem;
+    font-size: 1.6rem;
     line-height: 1;
   }
-  .links a:hover { color: var(--accent); text-decoration: none; }
+  .links a:hover { color: var(--icon-hover); text-decoration: none; }
   .links a::after {
     content: attr(data-tip);
     position: absolute;
@@ -310,9 +313,9 @@
     <p>I received my PhD in Business Economics jointly from KU Leuven and Ghent University.</p>
     <p class="market">I am on the 2026–2027 academic job market.</p>
     <ul class="links">
-      <li><a href="NGOkatan_CV.pdf" target="_blank" rel="noopener" aria-label="CV" data-tip="CV"><i class="ai ai-cv" aria-hidden="true"></i></a></li>
+      <li><a href="NGOkatan_CV.pdf" target="_blank" rel="noopener" aria-label="CV" data-tip="CV"><i class="ai ai-cv-square" aria-hidden="true"></i></a></li>
       <li><a href="https://www.linkedin.com/in/nejatokatan" target="_blank" rel="noopener" aria-label="LinkedIn" data-tip="LinkedIn"><i class="fa-brands fa-linkedin" aria-hidden="true"></i></a></li>
-      <li><a href="https://scholar.google.com/citations?user=MA3I0KQAAAAJ&amp;hl=en" target="_blank" rel="noopener" aria-label="Google Scholar" data-tip="Google Scholar"><i class="ai ai-google-scholar" aria-hidden="true"></i></a></li>
+      <li><a href="https://scholar.google.com/citations?user=MA3I0KQAAAAJ&amp;hl=en" target="_blank" rel="noopener" aria-label="Google Scholar" data-tip="Google Scholar"><i class="ai ai-google-scholar-square" aria-hidden="true"></i></a></li>
     </ul>
 
     <section id="research">
