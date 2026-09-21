@@ -168,19 +168,8 @@
     color: var(--muted);
     font-size: 1.6rem;
     line-height: 1;
-    vertical-align: top;
   }
   .links a:hover { color: var(--icon-hover); text-decoration: none; }
-  /* LinkedIn: small "in" inside a square that matches the CV and Scholar squares */
-  .links .sq {
-    display: grid;
-    place-items: center;
-    width: 0.868em;
-    height: 0.868em;
-    border-radius: 0.14em;
-    background: currentColor;
-  }
-  .links .sq i { color: var(--paper); font-size: 0.47em; }
   .links a::after {
     content: attr(data-tip);
     position: absolute;
@@ -203,7 +192,6 @@
     .links a::after { transition: none; }
   }
   section { margin-top: 56px; }
-  #research { margin-top: 56px; }
   html { scroll-behavior: smooth; }
   section { scroll-margin-top: 64px; }
   #teaching { min-height: 100vh; }
@@ -288,7 +276,7 @@
   } catch (e) {}
 </script>
 </head>
-<body id="top">
+<body>
 <div class="page">
 
   <button class="theme-switch" type="button" role="switch"
@@ -315,19 +303,18 @@
       <li>Milan, Italy</li>
     </ul>
     <ul class="nav">
-      <li><a href="#top">Home</a></li>
       <li><a href="#research">Research</a></li>
       <li><a href="#teaching">Teaching</a></li>
     </ul>
   </aside>
 
   <main>
-    <p class="intro">I am a postdoctoral researcher in economics and finance at the University of Milano-Bicocca. I am an empirical economist working on banking, corporate finance, international economics, and labor economics.</p>
+    <p class="intro">I am a postdoctoral researcher in economics and finance at the University of Milano-Bicocca. My research covers banking, corporate finance, international economics, and labor economics.</p>
     <p>I received my PhD in Business Economics jointly from KU Leuven and Ghent University.</p>
     <p class="market">I am on the 2026–2027 academic job market.</p>
     <ul class="links">
       <li><a href="NGOkatan_CV.pdf" target="_blank" rel="noopener" aria-label="CV" data-tip="CV"><i class="ai ai-cv-square" aria-hidden="true"></i></a></li>
-      <li><a href="https://www.linkedin.com/in/nejatokatan" target="_blank" rel="noopener" aria-label="LinkedIn" data-tip="LinkedIn"><span class="sq" aria-hidden="true"><i class="fa-brands fa-linkedin-in"></i></span></a></li>
+      <li><a href="https://www.linkedin.com/in/nejatokatan" target="_blank" rel="noopener" aria-label="LinkedIn" data-tip="LinkedIn"><i class="fa-brands fa-linkedin" aria-hidden="true"></i></a></li>
       <li><a href="https://scholar.google.com/citations?user=MA3I0KQAAAAJ&amp;hl=en" target="_blank" rel="noopener" aria-label="Google Scholar" data-tip="Google Scholar"><i class="ai ai-google-scholar-square" aria-hidden="true"></i></a></li>
     </ul>
 
