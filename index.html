@@ -102,12 +102,15 @@
   .nav a { color: var(--ink); }
   .nav a:hover { color: var(--accent); }
 
-  /* Light/dark switch, top right */
+  /* Light/dark switch: stays at the top right while scrolling,
+     aligned with the right edge of the content */
   .page { position: relative; }
   .theme-switch {
-    position: absolute;
+    position: fixed;
+    z-index: 10;
     top: 26px;
-    right: 32px;
+    right: max(32px, calc((100% - 1040px) / 2 + 32px));
+    box-shadow: 0 0 0 6px var(--paper);
     width: 44px;
     height: 24px;
     padding: 0;
@@ -154,6 +157,10 @@
   }
   .theme-switch:hover::after,
   .theme-switch:focus-visible::after { opacity: 1; }
+  /* Phones have no hover: don't leave the label stuck on screen after a tap */
+  @media (hover: none) {
+    .theme-switch::after { display: none; }
+  }
   @media (prefers-reduced-motion: reduce) {
     .knob, .theme-switch::after { transition: none; }
   }
@@ -412,7 +419,7 @@
         </ul>
       </div>
 
-      <footer>Last updated: September 2026</footer>
+      <footer>Last updated September 2026</footer>
     </section>
   </main>
 
