@@ -281,21 +281,41 @@
     summary::before { transition: none; }
   }
 
-  /* Mobile: sidebar becomes a header */
+  /* Mobile: sidebar becomes a header, and the menu stays pinned
+     at the top of the screen while scrolling */
   @media (max-width: 760px) {
-    .page { grid-template-columns: 1fr; gap: 40px; padding: 60px 22px 32px; }
-    .theme-switch { top: 18px; right: 22px; }
-    .side {
-      position: static;
-      display: grid;
+    .page {
       grid-template-columns: 110px 1fr;
       column-gap: 20px;
+      row-gap: 0;
       align-items: start;
+      padding: 60px 22px 32px;
     }
-    .portrait { width: 110px; margin: 0; grid-row: 1 / span 3; }
-    .name { font-size: 1.5rem; }
-    .contact { margin-bottom: 0; }
-    .nav { grid-column: 1 / -1; display: flex; align-items: baseline; gap: 22px; margin-top: 22px; }
+    .theme-switch { top: 18px; right: 22px; }
+    /* The sidebar's items join the page grid, so the menu can stick
+       for the whole length of the page */
+    .side { display: contents; }
+    .portrait { width: 110px; margin: 0; grid-column: 1; grid-row: 1 / span 3; }
+    .name { font-size: 1.5rem; grid-column: 2; grid-row: 1; }
+    .role { grid-column: 2; grid-row: 2; }
+    .contact { margin-bottom: 0; grid-column: 2; grid-row: 3; }
+    .nav {
+      grid-column: 1 / -1;
+      grid-row: 4;
+      display: flex;
+      align-items: baseline;
+      gap: 22px;
+      margin-top: 22px;
+      padding: 14px 0 12px;
+      border-bottom: 1px solid var(--rule);
+      position: sticky;
+      top: 0;
+      z-index: 5;
+      background: var(--paper);
+    }
+    main { grid-column: 1 / -1; grid-row: 5; margin-top: 40px; }
+    /* Headings land just below the pinned menu */
+    section { scroll-margin-top: 86px; }
   }
 </style>
 <script>
