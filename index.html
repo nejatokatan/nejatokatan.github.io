@@ -8,6 +8,10 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap" rel="stylesheet">
+<!-- Icons: Academicons (CV, Google Scholar) and Font Awesome brands (LinkedIn) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.9.5/css/academicons.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/fontawesome.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/brands.min.css">
 <style>
   :root {
     color-scheme: light;
@@ -152,6 +156,38 @@
   main { max-width: 40rem; }
   .intro { font-size: 1.2rem; line-height: 1.55; margin: 0 0 14px; }
   .market { margin: 0; }
+
+  /* CV, LinkedIn, Google Scholar icons */
+  .links { list-style: none; display: flex; gap: 20px; margin: 18px 0 0; padding: 0; }
+  .links a {
+    position: relative;
+    display: inline-block;
+    color: var(--muted);
+    font-size: 1.45rem;
+    line-height: 1;
+  }
+  .links a:hover { color: var(--accent); text-decoration: none; }
+  .links a::after {
+    content: attr(data-tip);
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+    font: 0.8rem/1.4 "Newsreader", Georgia, serif;
+    color: var(--paper);
+    background: var(--ink);
+    padding: 3px 9px;
+    border-radius: 3px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.15s ease;
+  }
+  .links a:hover::after,
+  .links a:focus-visible::after { opacity: 1; }
+  @media (prefers-reduced-motion: reduce) {
+    .links a::after { transition: none; }
+  }
   section { margin-top: 56px; }
   html { scroll-behavior: smooth; }
   section { scroll-margin-top: 64px; }
@@ -266,8 +302,6 @@
     <ul class="nav">
       <li><a href="#research">Research</a></li>
       <li><a href="#teaching">Teaching</a></li>
-      <!-- Upload your CV to the repository as cv.pdf -->
-      <li><a href="NGOkatan_CV.pdf">CV</a></li>
     </ul>
   </aside>
 
@@ -275,6 +309,11 @@
     <p class="intro">I am a postdoctoral researcher in economics and finance at the University of Milano-Bicocca. My research covers banking, corporate finance, international economics, and labor economics.</p>
     <p>I received my PhD in Business Economics jointly from KU Leuven and Ghent University.</p>
     <p class="market">I am on the 2026–2027 academic job market.</p>
+    <ul class="links">
+      <li><a href="NGOkatan_CV.pdf" target="_blank" rel="noopener" aria-label="CV" data-tip="CV"><i class="ai ai-cv" aria-hidden="true"></i></a></li>
+      <li><a href="https://www.linkedin.com/in/nejatokatan" target="_blank" rel="noopener" aria-label="LinkedIn" data-tip="LinkedIn"><i class="fa-brands fa-linkedin" aria-hidden="true"></i></a></li>
+      <li><a href="https://scholar.google.com/citations?user=MA3I0KQAAAAJ&amp;hl=en" target="_blank" rel="noopener" aria-label="Google Scholar" data-tip="Google Scholar"><i class="ai ai-google-scholar" aria-hidden="true"></i></a></li>
+    </ul>
 
     <section id="research">
       <h2>Research</h2>
@@ -347,7 +386,7 @@
       <div class="teach">
         <h3>KU Leuven</h3>
         <ul>
-          <li>Supervision of 31 master's theses</li>
+          <li>Supervision of 31 master's theses in economics and finance</li>
         </ul>
       </div>
 
