@@ -10,6 +10,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap" rel="stylesheet">
 <style>
   :root {
+    color-scheme: light;
     --paper: #ffffff;
     --ink: #262626;
     --muted: #6b6b6b;
@@ -17,8 +18,11 @@
     --accent: #980000;
     --accent-soft: #eedcdc;
   }
+  /* Dark colours: used when the visitor's system is dark
+     (unless they chose light), or when they chose dark */
   @media (prefers-color-scheme: dark) {
-    :root {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
       --paper: #1b1b1d;
       --ink: #e8e6e3;
       --muted: #a19d98;
@@ -26,6 +30,15 @@
       --accent: #e08a8a;
       --accent-soft: #4a2e2e;
     }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --paper: #1b1b1d;
+    --ink: #e8e6e3;
+    --muted: #a19d98;
+    --rule: #36352f;
+    --accent: #e08a8a;
+    --accent-soft: #4a2e2e;
   }
   * { box-sizing: border-box; }
   html { font-size: 18px; -webkit-text-size-adjust: 100%; }
@@ -39,7 +52,7 @@
   }
   a { color: var(--accent); text-decoration: none; }
   a:hover { text-decoration: underline; text-underline-offset: 3px; }
-  a:focus-visible, summary:focus-visible {
+  a:focus-visible, summary:focus-visible, button:focus-visible {
     outline: 2px solid var(--accent);
     outline-offset: 3px;
     border-radius: 2px;
@@ -78,6 +91,16 @@
   .nav li { margin: 4px 0; }
   .nav a { color: var(--ink); }
   .nav a:hover { color: var(--accent); }
+  .nav .theme { margin-top: 14px; }
+  .theme-toggle {
+    background: none;
+    border: 0;
+    padding: 0;
+    font: inherit;
+    color: var(--muted);
+    cursor: pointer;
+  }
+  .theme-toggle:hover { color: var(--accent); }
 
   /* Content */
   main { max-width: 40rem; }
@@ -104,6 +127,7 @@
   .paper-title { font-size: 1.1rem; font-weight: 600; line-height: 1.35; margin: 0; }
   .paper-authors { color: var(--muted); margin: 2px 0 0; }
   .paper-status { font-style: italic; margin: 0; }
+  .paper-pub { margin: 0; }
   details { margin-top: 4px; }
   summary {
     cursor: pointer;
@@ -127,6 +151,9 @@
     padding-left: 14px;
     border-left: 2px solid var(--accent-soft);
     font-size: 0.97rem;
+    text-align: justify;
+    -webkit-hyphens: auto;
+    hyphens: auto;
   }
 
   /* Teaching */
@@ -152,9 +179,17 @@
     .portrait { width: 110px; margin: 0; grid-row: 1 / span 3; }
     .name { font-size: 1.5rem; }
     .contact { margin-bottom: 0; }
-    .nav { grid-column: 1 / -1; display: flex; gap: 22px; margin-top: 22px; }
+    .nav { grid-column: 1 / -1; display: flex; align-items: baseline; gap: 22px; margin-top: 22px; }
+    .nav .theme { margin: 0 0 0 auto; }
   }
 </style>
+<script>
+  // Apply the visitor's saved choice before the page is drawn
+  try {
+    var saved = localStorage.getItem('theme');
+    if (saved) document.documentElement.setAttribute('data-theme', saved);
+  } catch (e) {}
+</script>
 </head>
 <body>
 <div class="page">
@@ -173,6 +208,7 @@
       <li><a href="#teaching">Teaching</a></li>
       <!-- Upload your CV to the repository as cv.pdf -->
       <li><a href="NGOkatan_CV.pdf">CV</a></li>
+      <li class="theme"><button class="theme-toggle" type="button" hidden>Dark mode</button></li>
     </ul>
   </aside>
 
@@ -267,5 +303,27 @@
   </main>
 
 </div>
+<script>
+  (function () {
+    var root = document.documentElement;
+    var btn = document.querySelector('.theme-toggle');
+    var media = window.matchMedia('(prefers-color-scheme: dark)');
+    function current() {
+      return root.getAttribute('data-theme') || (media.matches ? 'dark' : 'light');
+    }
+    function render() {
+      btn.textContent = current() === 'dark' ? 'Light mode' : 'Dark mode';
+    }
+    btn.addEventListener('click', function () {
+      var next = current() === 'dark' ? 'light' : 'dark';
+      root.setAttribute('data-theme', next);
+      try { localStorage.setItem('theme', next); } catch (e) {}
+      render();
+    });
+    media.addEventListener('change', render);
+    btn.hidden = false;
+    render();
+  })();
+</script>
 </body>
 </html>
