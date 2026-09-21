@@ -70,12 +70,33 @@
   .page {
     max-width: 1040px;
     margin: 0 auto;
-    padding: 72px 32px 48px;
+    padding: 0 32px 48px;
     display: grid;
     grid-template-columns: 240px minmax(0, 1fr);
-    gap: 72px;
+    column-gap: 72px;
+    row-gap: 0;
   }
-  .side { position: sticky; top: 72px; align-self: start; }
+  /* Top bar: menu on the left, light/dark switch on the right.
+     It stays pinned at the top of the screen on every screen size. */
+  .topbar {
+    grid-column: 1 / -1;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 0;
+    margin-bottom: 48px;
+    background: var(--paper);
+    border-bottom: 1px solid var(--rule);
+  }
+  .side { align-self: start; }
+  /* The sidebar stays in view while scrolling, but only on screens
+     tall enough to show all of it */
+  @media (min-height: 620px) {
+    .side { position: sticky; top: 96px; }
+  }
   .portrait {
     display: block;
     width: 180px;
@@ -97,20 +118,15 @@
   .role { color: var(--muted); font-size: 0.95rem; line-height: 1.45; margin: 0 0 20px; }
   .contact { list-style: none; padding: 0; margin: 0 0 28px; font-size: 0.95rem; }
   .contact li { margin: 2px 0; }
-  .nav { list-style: none; margin: 0; padding: 20px 0 0; border-top: 1px solid var(--rule); }
-  .nav li { margin: 4px 0; }
+  .nav { list-style: none; margin: 0; padding: 0; display: flex; gap: 28px; }
+  .nav li { margin: 0; }
   .nav a { color: var(--ink); }
   .nav a:hover { color: var(--accent); }
 
-  /* Light/dark switch: stays at the top right while scrolling,
-     aligned with the right edge of the content */
-  .page { position: relative; }
+  /* Light/dark switch, at the right end of the top bar */
   .theme-switch {
-    position: absolute /*fixed*/;
-    z-index: 10;
-    top: 26px;
-    right: max(32px, calc((100% - 1040px) / 2 + 32px));
-    box-shadow: 0 0 0 6px var(--paper);
+    position: relative;
+    flex: none;
     width: 44px;
     height: 24px;
     padding: 0;
@@ -188,7 +204,8 @@
     vertical-align: top;
   }
   .links a:hover { color: var(--icon-hover); text-decoration: none; }
-  /* LinkedIn: small "in" inside a square that matches the CV and Scholar squares */
+  /* All three icons are drawn as identical squares, so they line up
+     exactly on every browser and operating system */
   .links .sq {
     display: grid;
     place-items: center;
@@ -197,7 +214,9 @@
     border-radius: 0.14em;
     background: currentColor;
   }
-  .links .sq i { color: var(--paper); font-size: 0.56em; }
+  .links .sq i { color: var(--paper); font-size: 0.56em; line-height: 1; }
+  .links .sq .ai-cv { font-size: 0.66em; }
+  .links .sq .ai-google-scholar { font-size: 0.8em; }
   .links a::after {
     content: attr(data-tip);
     position: absolute;
@@ -223,7 +242,7 @@
   /* Tighter spacing between the three research sections */
   #working-papers, #work-in-progress { margin-top: 32px; }
   html { scroll-behavior: smooth; }
-  section { scroll-margin-top: 48px; }
+  section { scroll-margin-top: 90px; }
   #teaching { min-height: 100vh; }
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
@@ -281,41 +300,22 @@
     summary::before { transition: none; }
   }
 
-  /* Mobile: sidebar becomes a header, and the menu stays pinned
-     at the top of the screen while scrolling */
+  /* Mobile: one column; the sidebar becomes a header under the top bar */
   @media (max-width: 760px) {
-    .page {
+    .page { grid-template-columns: 1fr; padding: 0 22px 32px; }
+    .topbar { margin-bottom: 32px; }
+    .nav { gap: 22px; }
+    .side {
+      position: static;
+      display: grid;
       grid-template-columns: 110px 1fr;
       column-gap: 20px;
-      row-gap: 0;
       align-items: start;
-      padding: 60px 22px 32px;
     }
-    .theme-switch { top: 18px; right: 22px; }
-    /* The sidebar's items join the page grid, so the menu can stick
-       for the whole length of the page */
-    .side { display: contents; }
-    .portrait { width: 110px; margin: 0; grid-column: 1; grid-row: 1 / span 3; }
-    .name { font-size: 1.5rem; grid-column: 2; grid-row: 1; }
-    .role { grid-column: 2; grid-row: 2; }
-    .contact { margin-bottom: 0; grid-column: 2; grid-row: 3; }
-    .nav {
-      grid-column: 1 / -1;
-      grid-row: 4;
-      display: flex;
-      align-items: baseline;
-      gap: 22px;
-      margin-top: 22px;
-      padding: 14px 0 12px;
-      border-bottom: 1px solid var(--rule);
-      position: sticky;
-      top: 0;
-      z-index: 5;
-      background: var(--paper);
-    }
-    main { grid-column: 1 / -1; grid-row: 5; margin-top: 40px; }
-    /* Headings land just below the pinned menu */
-    section { scroll-margin-top: 86px; }
+    .portrait { width: 110px; margin: 0; grid-row: 1 / span 3; }
+    .name { font-size: 1.5rem; }
+    .contact { margin-bottom: 0; }
+    main { margin-top: 40px; }
   }
 </style>
 <script>
@@ -329,19 +329,27 @@
 <body id="top">
 <div class="page">
 
-  <button class="theme-switch" type="button" role="switch"
-          aria-checked="false" aria-label="Dark mode" hidden>
-    <span class="knob" aria-hidden="true">
-      <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-           stroke-width="2.2" stroke-linecap="round">
-        <circle cx="12" cy="12" r="4.2" fill="currentColor" stroke="none"/>
-        <path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/>
-      </svg>
-      <svg class="moon" viewBox="0 0 24 24" fill="currentColor">
-        <path d="M20.5 14.6A8.5 8.5 0 0 1 9.4 3.5a8.5 8.5 0 1 0 11.1 11.1z"/>
-      </svg>
-    </span>
-  </button>
+  <header class="topbar">
+    <ul class="nav">
+      <li><a href="#top">Home</a></li>
+      <li><a href="#research">Research</a></li>
+      <li><a href="#teaching">Teaching</a></li>
+      <li><a href="NGOkatan_CV.pdf" target="_blank" rel="noopener">CV</a></li>      
+    </ul>
+    <button class="theme-switch" type="button" role="switch"
+            aria-checked="false" aria-label="Dark mode" hidden>
+      <span class="knob" aria-hidden="true">
+        <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+             stroke-width="2.2" stroke-linecap="round">
+          <circle cx="12" cy="12" r="4.2" fill="currentColor" stroke="none"/>
+          <path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/>
+        </svg>
+        <svg class="moon" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M20.5 14.6A8.5 8.5 0 0 1 9.4 3.5a8.5 8.5 0 1 0 11.1 11.1z"/>
+        </svg>
+      </span>
+    </button>
+  </header>
 
   <aside class="side">
     <!-- Upload your photo to the repository as profile.jpg -->
@@ -352,12 +360,6 @@
       <li><a href="mailto:nejatgokhan.okatan@unimib.it">nejatgokhan.okatan@unimib.it</a></li>
       <li>Milan, Italy</li>
     </ul>
-    <ul class="nav">
-      <li><a href="#top">Home</a></li>
-      <li><a href="#research">Research</a></li>
-      <li><a href="#teaching">Teaching</a></li>
-      <li><a href="NGOkatan_CV.pdf" target="_blank" rel="noopener">CV</a></li>      
-    </ul>
   </aside>
 
   <main>
@@ -365,9 +367,9 @@
     <p>I hold a joint PhD in Business Economics from KU Leuven and Ghent University.</p>
     <p class="market">I am on the 2026–2027 academic job market.</p>
     <ul class="links">
-      <li><a href="NGOkatan_CV.pdf" target="_blank" rel="noopener" aria-label="CV" data-tip="Curriculum Vitae"><i class="ai ai-cv-square" aria-hidden="true"></i></a></li>
+      <li><a href="NGOkatan_CV.pdf" target="_blank" rel="noopener" aria-label="CV" data-tip="Curriculum Vitae"><span class="sq" aria-hidden="true"><i class="ai ai-cv"></i></span></a></li>
       <li><a href="https://www.linkedin.com/in/nejatokatan" target="_blank" rel="noopener" aria-label="LinkedIn" data-tip="LinkedIn"><span class="sq" aria-hidden="true"><i class="fa-brands fa-linkedin-in"></i></span></a></li>
-      <li><a href="https://scholar.google.com/citations?user=MA3I0KQAAAAJ&amp;hl=en" target="_blank" rel="noopener" aria-label="Google Scholar" data-tip="Google Scholar"><i class="ai ai-google-scholar-square" aria-hidden="true"></i></a></li>
+      <li><a href="https://scholar.google.com/citations?user=MA3I0KQAAAAJ&amp;hl=en" target="_blank" rel="noopener" aria-label="Google Scholar" data-tip="Google Scholar"><span class="sq" aria-hidden="true"><i class="ai ai-google-scholar"></i></span></a></li>
     </ul>
 
     <!-- Research: three sections, each styled like the Teaching section.
