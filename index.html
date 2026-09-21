@@ -524,6 +524,24 @@
     window.addEventListener('resize', update);
     update();
   })();
+
+  // When an abstract is opened near the bottom of the screen,
+  // scroll just enough to show all of it (keeping the paper title in view)
+  (function () {
+    var bar = document.querySelector('.topbar');
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    document.querySelectorAll('.paper details').forEach(function (d) {
+      d.addEventListener('toggle', function () {
+        if (!d.open) return;
+        var gap = 16;
+        var overflow = d.getBoundingClientRect().bottom - (window.innerHeight - gap);
+        if (overflow <= 0) return;
+        var room = d.closest('.paper').getBoundingClientRect().top - (bar.getBoundingClientRect().bottom + gap);
+        var shift = Math.min(overflow, room);
+        if (shift > 0) window.scrollBy({ top: shift, behavior: reduce ? 'auto' : 'smooth' });
+      });
+    });
+  })();
 </script>
 </body>
 </html>
