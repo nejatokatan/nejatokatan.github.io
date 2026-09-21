@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nejat Gökhan Okatan</title>
+<meta name="description" content="Nejat Gökhan Okatan, postdoctoral researcher in economics and finance at the University of Milano-Bicocca.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #ffffff;
+    --ink: #262626;
+    --muted: #6b6b6b;
+    --rule: #e4e1dc;
+    --accent: #980000;
+    --accent-soft: #eedcdc;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --paper: #1b1b1d;
+      --ink: #e8e6e3;
+      --muted: #a19d98;
+      --rule: #36352f;
+      --accent: #e08a8a;
+      --accent-soft: #4a2e2e;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { font-size: 18px; -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "Newsreader", Georgia, "Times New Roman", serif;
+    font-optical-sizing: auto;
+    line-height: 1.6;
+  }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; text-underline-offset: 3px; }
+  a:focus-visible, summary:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  /* Layout: fixed sidebar on the left, content on the right */
+  .page {
+    max-width: 1040px;
+    margin: 0 auto;
+    padding: 72px 32px 48px;
+    display: grid;
+    grid-template-columns: 240px minmax(0, 1fr);
+    gap: 72px;
+  }
+  .side { position: sticky; top: 72px; align-self: start; }
+  .portrait {
+    display: block;
+    width: 180px;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    background: var(--rule);
+    color: transparent;
+    margin-bottom: 24px;
+  }
+  .name {
+    font-size: 1.75rem;
+    font-weight: 500;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    margin: 0 0 10px;
+  }
+  .role { color: var(--muted); font-size: 0.95rem; line-height: 1.45; margin: 0 0 20px; }
+  .contact { list-style: none; padding: 0; margin: 0 0 28px; font-size: 0.95rem; }
+  .contact li { margin: 2px 0; }
+  .nav { list-style: none; margin: 0; padding: 20px 0 0; border-top: 1px solid var(--rule); }
+  .nav li { margin: 4px 0; }
+  .nav a { color: var(--ink); }
+  .nav a:hover { color: var(--accent); }
+
+  /* Content */
+  main { max-width: 40rem; }
+  .intro { font-size: 1.2rem; line-height: 1.55; margin: 0 0 14px; }
+  .market { margin: 0; }
+  section { margin-top: 56px; }
+  h2 {
+    font-size: 1.35rem;
+    font-weight: 600;
+    margin: 0 0 24px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--rule);
+  }
+  h3 { font-size: 1rem; font-weight: 600; margin: 0 0 4px; }
+
+  /* Papers */
+  .paper { margin: 0 0 30px; }
+  .paper-title { font-size: 1.1rem; font-weight: 600; line-height: 1.35; margin: 0; }
+  .paper-authors { color: var(--muted); margin: 2px 0 0; }
+  .paper-status { font-style: italic; margin: 0; }
+  details { margin-top: 4px; }
+  summary {
+    cursor: pointer;
+    color: var(--accent);
+    font-size: 0.95rem;
+    list-style: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  summary::-webkit-details-marker { display: none; }
+  summary::before {
+    content: "\25B8";
+    display: inline-block;
+    font-size: 0.8em;
+    transition: transform 0.15s ease;
+  }
+  details[open] summary::before { transform: rotate(90deg); }
+  .abstract {
+    margin: 10px 0 0;
+    padding-left: 14px;
+    border-left: 2px solid var(--accent-soft);
+    font-size: 0.97rem;
+  }
+
+  /* Teaching */
+  .teach { margin: 0 0 22px; }
+  .teach ul { list-style: none; padding: 0; margin: 0; }
+
+  footer { margin-top: 72px; color: var(--muted); font-size: 0.85rem; }
+
+  @media (prefers-reduced-motion: reduce) {
+    summary::before { transition: none; }
+  }
+
+  /* Mobile: sidebar becomes a header */
+  @media (max-width: 760px) {
+    .page { grid-template-columns: 1fr; gap: 40px; padding: 40px 22px 32px; }
+    .side {
+      position: static;
+      display: grid;
+      grid-template-columns: 110px 1fr;
+      column-gap: 20px;
+      align-items: start;
+    }
+    .portrait { width: 110px; margin: 0; grid-row: 1 / span 3; }
+    .name { font-size: 1.5rem; }
+    .contact { margin-bottom: 0; }
+    .nav { grid-column: 1 / -1; display: flex; gap: 22px; margin-top: 22px; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <aside class="side">
+    <!-- Upload your photo to the repository as profile.jpg -->
+    <img class="portrait" src="profile.jpg" alt="Nejat Gökhan Okatan">
+    <h1 class="name">Nejat Gökhan Okatan</h1>
+    <p class="role">Postdoctoral Researcher<br>DEMS, University of Milano&#8209;Bicocca</p>
+    <ul class="contact">
+      <li><a href="mailto:your.email@unimib.it">your.email@unimib.it</a></li>
+      <li>Milan, Italy</li>
+    </ul>
+    <ul class="nav">
+      <li><a href="#research">Research</a></li>
+      <li><a href="#teaching">Teaching</a></li>
+      <!-- Upload your CV to the repository as cv.pdf -->
+      <li><a href="cv.pdf">CV</a></li>
+    </ul>
+  </aside>
+
+  <main>
+    <p class="intro">I am a postdoctoral researcher in economics and finance at the University of Milano-Bicocca. My research covers banking, corporate finance, international economics, and labor economics.</p>
+    <p>I received my PhD in Business Economics jointly from KU Leuven and Ghent University.</p>
+    <p class="market">I am on the 2026–2027 academic job market.</p>
+
+    <section id="research">
+      <h2>Research</h2>
+
+      <!-- PAPER: copy from here to the closing </article> to add a new paper -->
+      <article class="paper">
+        <p class="paper-title"><a href="papers/sovereign-defaults-trade.pdf">[Title of the sovereign defaults and trade paper]</a></p>
+        <p class="paper-authors">with Silvia Marchesi and Dennis Essers</p>
+        <p class="paper-status">Revise and resubmit, Journal of International Economics</p>
+        <details>
+          <summary>Abstract</summary>
+          <p class="abstract">Paste the abstract here.</p>
+        </details>
+      </article>
+
+      <article class="paper">
+        <p class="paper-title"><a href="papers/gm-antwerp.pdf">[Title of the GM Antwerp paper]</a></p>
+        <p class="paper-authors">with Mike Mariathasan and Klaas Mulier</p>
+        <details>
+          <summary>Abstract</summary>
+          <p class="abstract">Paste the abstract here.</p>
+        </details>
+      </article>
+
+      <article class="paper">
+        <p class="paper-title"><a href="papers/mass-layoffs.pdf">Mass Layoffs, Re-employment Preferences, and Firm Outcomes</a></p>
+        <p class="paper-authors">with Mike Mariathasan and Klaas Mulier</p>
+        <details>
+          <summary>Abstract</summary>
+          <p class="abstract">Paste the abstract here.</p>
+        </details>
+      </article>
+
+      <article class="paper">
+        <p class="paper-title"><a href="papers/bank-ownership.pdf">Sovereign Defaults, Bank Ownership, and Lending Outcomes</a></p>
+        <p class="paper-authors">with Silvia Marchesi and Ugo Panizza</p>
+        <p class="paper-status">Presented at the 4th Public Debt Management Conference, Paris, 2026</p>
+        <details>
+          <summary>Abstract</summary>
+          <p class="abstract">Paste the abstract here.</p>
+        </details>
+      </article>
+    </section>
+
+    <section id="teaching">
+      <h2>Teaching</h2>
+
+      <div class="teach">
+        <h3>University of Milano-Bicocca</h3>
+        <ul>
+          <li>International Financial Markets (MSc)</li>
+          <li>Principles of Economics (BSc)</li>
+        </ul>
+      </div>
+
+      <div class="teach">
+        <h3>KU Leuven</h3>
+        <ul>
+          <li>Supervision of 31 master's theses, 2018–2024</li>
+        </ul>
+      </div>
+
+      <div class="teach">
+        <h3>Middle East Technical University, teaching assistant</h3>
+        <ul>
+          <li>Statistics for Economists</li>
+          <li>Introduction to Research Methods</li>
+        </ul>
+      </div>
+    </section>
+
+    <footer>Last updated September 2026</footer>
+  </main>
+
+</div>
+</body>
+</html>
