@@ -84,6 +84,12 @@
   .intro { font-size: 1.2rem; line-height: 1.55; margin: 0 0 14px; }
   .market { margin: 0; }
   section { margin-top: 56px; }
+  html { scroll-behavior: smooth; }
+  section { scroll-margin-top: 64px; }
+  #teaching { min-height: 100vh; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+  }
   h2 {
     font-size: 1.35rem;
     font-weight: 600;
