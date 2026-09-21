@@ -110,6 +110,8 @@
   .nav li { margin: 0; }
   .nav a { color: var(--ink); }
   .nav a:hover { color: var(--accent); }
+  /* The menu item for the part of the page in view takes the accent colour */
+  .nav a.active { color: var(--accent); }
 
   /* Light/dark switch, at the right end of the top bar */
   .theme-switch {
@@ -480,6 +482,47 @@
     });
     render();
     btn.hidden = false;
+  })();
+
+  // Highlight the menu item for the part of the page in view
+  (function () {
+    var links = {
+      home: document.querySelector('.nav a[href="#top"]'),
+      research: document.querySelector('.nav a[href="#research"]'),
+      teaching: document.querySelector('.nav a[href="#teaching"]')
+    };
+    var sections = [
+      ['research', document.getElementById('research')],
+      ['research', document.getElementById('working-papers')],
+      ['research', document.getElementById('work-in-progress')],
+      ['teaching', document.getElementById('teaching')]
+    ];
+    var bar = document.querySelector('.topbar');
+    var ticking = false;
+    function update() {
+      ticking = false;
+      var line = bar.getBoundingClientRect().bottom + 40;
+      var active = 'home';
+      sections.forEach(function (s) {
+        if (s[1] && s[1].getBoundingClientRect().top <= line) active = s[0];
+      });
+      Object.keys(links).forEach(function (k) {
+        var a = links[k];
+        if (!a) return;
+        if (k === active) {
+          a.classList.add('active');
+          a.setAttribute('aria-current', 'location');
+        } else {
+          a.classList.remove('active');
+          a.removeAttribute('aria-current');
+        }
+      });
+    }
+    window.addEventListener('scroll', function () {
+      if (!ticking) { ticking = true; requestAnimationFrame(update); }
+    }, { passive: true });
+    window.addEventListener('resize', update);
+    update();
   })();
 </script>
 </body>
