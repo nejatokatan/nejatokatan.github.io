@@ -185,19 +185,8 @@
     color: var(--muted);
     font-size: 1.6rem;
     line-height: 1;
-    vertical-align: top;
   }
   .links a:hover { color: var(--icon-hover); text-decoration: none; }
-  /* LinkedIn: small "in" inside a square that matches the CV and Scholar squares */
-  .links .sq {
-    display: grid;
-    place-items: center;
-    width: 0.868em;
-    height: 0.868em;
-    border-radius: 0.14em;
-    background: currentColor;
-  }
-  .links .sq i { color: var(--paper); font-size: 0.56em; }
   .links a::after {
     content: attr(data-tip);
     position: absolute;
@@ -220,8 +209,6 @@
     .links a::after { transition: none; }
   }
   section { margin-top: 56px; }
-  /* Tighter spacing between the three research sections */
-  #working-papers, #work-in-progress { margin-top: 32px; }
   html { scroll-behavior: smooth; }
   section { scroll-margin-top: 64px; }
   #teaching { min-height: 100vh; }
@@ -345,14 +332,12 @@
     <p class="market">I am on the 2026–2027 academic job market.</p>
     <ul class="links">
       <li><a href="NGOkatan_CV.pdf" target="_blank" rel="noopener" aria-label="CV" data-tip="CV"><i class="ai ai-cv-square" aria-hidden="true"></i></a></li>
-      <li><a href="https://www.linkedin.com/in/nejatokatan" target="_blank" rel="noopener" aria-label="LinkedIn" data-tip="LinkedIn"><span class="sq" aria-hidden="true"><i class="fa-brands fa-linkedin-in"></i></span></a></li>
+      <li><a href="https://www.linkedin.com/in/nejatokatan" target="_blank" rel="noopener" aria-label="LinkedIn" data-tip="LinkedIn"><i class="fa-brands fa-linkedin" aria-hidden="true"></i></a></li>
       <li><a href="https://scholar.google.com/citations?user=MA3I0KQAAAAJ&amp;hl=en" target="_blank" rel="noopener" aria-label="Google Scholar" data-tip="Google Scholar"><i class="ai ai-google-scholar-square" aria-hidden="true"></i></a></li>
     </ul>
 
-    <!-- Research: three sections, each styled like the Teaching section.
-         The menu's "Research" link jumps to the first one. -->
     <section id="research">
-      <h2>Publications</h2>
+      <h2>Research</h2>
 
       <!-- PAPER: copy from here to the closing </article> to add a new paper -->
 
@@ -367,11 +352,6 @@
         </details>
       </article>
       
-    </section>
-
-    <section id="working-papers">
-      <h2>Working Papers</h2>
-
       <article class="paper">
         <p class="paper-title"><a href="papers/NGOkatan_Paper1_Default_Trade.pdf">Sovereign Defaults and Trade: External vs Domestic Creditors</a></p>
         <p class="paper-authors">with D. Essers and S. Marchesi</p>
@@ -401,11 +381,6 @@
           <p class="abstract">We study how workers' preference for job security shape re-employment following mass layoffs and how firms adjust to the resulting labor supply shock. Exploiting the closure of a large manufacturing plant in Belgium, we show that the resulting local increase in the supply of blue-collar workers raises blue-collar employment at exposed firms relative to otherwise similar firms. The effect is particularly pronounced among firms perceived to offer greater job security, suggesting that workers' preferences influence where displaced workers are re-employed. Firms that hire more displaced workers become more blue-collar- and less capital-intensive, but do not become more profitable. To accommodate their higher wage bills, they reduce interest expenses by substituting short-term for long-term debt. Thus, re-employment not only responds to workers' preferences but also alters firms' financial structure, making ex ante safer firms financially riskier. Our findings identify a novel channel through which labor supply shocks affect corporate financial decisions and firm solvency.</p>
         </details>
       </article>
-
-    </section>
-
-    <section id="work-in-progress">
-      <h2>Work in Progress</h2>
 
       <article class="paper">
         <p class="paper-title"><!--<a href="papers/NGOkatan_Paper2_Default_Banks.pdf">-->Sovereign Defaults, Bank Ownership, and Lending Outcomes</a></p>
