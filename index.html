@@ -241,14 +241,6 @@
   .paper-authors { color: var(--muted); margin: 2px 0 0; }
   .paper-status { font-style: italic; margin: 0; }
   .paper-pub { margin: 0; }
-  /* Subheadings inside Research: Publications, Working Papers, Work in Progress */
-  .group {
-    font-size: 1.2rem;
-    font-weight: 600;
-    color: var(--ink);
-    margin: 0 0 14px;
-  }
-  .paper + .group { margin-top: 40px; }
   details { margin-top: 4px; }
   summary {
     cursor: pointer;
@@ -355,12 +347,12 @@
       <li><a href="https://scholar.google.com/citations?user=MA3I0KQAAAAJ&amp;hl=en" target="_blank" rel="noopener" aria-label="Google Scholar" data-tip="Google Scholar"><i class="ai ai-google-scholar-square" aria-hidden="true"></i></a></li>
     </ul>
 
+    <!-- Research: three sections, each styled like the Teaching section.
+         The menu's "Research" link jumps to the first one. -->
     <section id="research">
-      <h2>Research</h2>
+      <h2>Publications</h2>
 
       <!-- PAPER: copy from here to the closing </article> to add a new paper -->
-
-      <h3 class="group">Publications</h3>
 
         <article class="paper">
         <p class="paper-title"><a href="papers/NGOkatan_Paper5_RealEffects.pdf">The Real Effects of Banks' Corporate Credit Supply: A Literature Review</a></p>
@@ -373,7 +365,10 @@
         </details>
       </article>
       
-      <h3 class="group">Working Papers</h3>
+    </section>
+
+    <section id="working-papers">
+      <h2>Working Papers</h2>
 
       <article class="paper">
         <p class="paper-title"><a href="papers/NGOkatan_Paper1_Default_Trade.pdf">Sovereign Defaults and Trade: External vs Domestic Creditors</a></p>
@@ -405,7 +400,10 @@
         </details>
       </article>
 
-      <h3 class="group">Work in Progress</h3>
+    </section>
+
+    <section id="work-in-progress">
+      <h2>Work in Progress</h2>
 
       <article class="paper">
         <p class="paper-title"><!--<a href="papers/NGOkatan_Paper2_Default_Banks.pdf">-->Sovereign Defaults, Bank Ownership, and Lending Outcomes</a></p>
