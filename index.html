@@ -306,6 +306,21 @@
     .name { font-size: 1.5rem; }
     .contact { margin-bottom: 0; }
     main { margin-top: 40px; }
+    /* The CV icon sits at the left edge: align its label to the left
+       so it never runs off the screen */
+    .links li:first-child a::after { left: 0; transform: none; }
+  }
+
+  /* Phones and tablets have no real hover. After a tap, their browsers
+     keep the hover look until you tap elsewhere, so hover effects are
+     switched off there (labels, colour changes, underlines). */
+  @media (hover: none) {
+    .links a::after { display: none; }
+    .links a:hover { color: var(--muted); }
+    .nav a:hover { color: var(--ink); }
+    .nav a.active:hover { color: var(--accent); }
+    .theme-switch:hover { background: var(--rule); border-color: var(--rule); }
+    a:hover { text-decoration: none; }
   }
 </style>
 <script>
